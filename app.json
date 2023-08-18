@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "brq-movies",
+    "slug": "brq-movies",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "brq-movies"
+}
