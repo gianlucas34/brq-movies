@@ -1,12 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import { LoginScreen } from '../app/presentation/screens/LoginScreen'
-import { MoviesScreen } from '../app/presentation/screens/MoviesScreen'
+import { MoviesScreen } from '../app/presentation/screens/movies/MoviesScreen'
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
-export const StackRoutes = () => (
+export const MoviesRoutes = () => (
   <Navigator screenOptions={{ headerShown: false }}>
-    <Screen name="login" component={LoginScreen} />
     <Screen name="movies" component={MoviesScreen} />
   </Navigator>
 )
