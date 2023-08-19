@@ -1,31 +1,27 @@
 import { mock } from 'jest-mock-extended'
 import { ILoginRepository } from '../../../../../src/app/domain/repositories/auth/loginRepository'
 import { LoginUsecase } from '../../../../../src/app/domain/usecases/auth/loginUsecase'
-import { UserEntity } from '../../../../../src/app/domain/entities/UserEntity'
 import { NoConnectionError } from '../../../../../src/core/returns/errors'
+import { credentials } from '../../../../mocks/auth/credentials'
+import { mockedResult } from '../../../../mocks/auth/mockedResult'
 
 describe('Login Usecase', () => {
   const repository = mock<ILoginRepository>()
-  const usecase = new LoginUsecase(repository)
+  const usecase = new LoginUsecase({ repository })
 
   it('Should return a UserEntity', async () => {
     repository.login.mockResolvedValue(mockedResult)
 
-    const result = await usecase.execute()
+    const result = await usecase.execute(credentials)
 
     expect(result).toEqual(mockedResult)
   })
 
   it('Should return a Failure', async () => {
-    repository.login.mockResolvedValue(new NoConnectionError())
+    repository.login.mockResolvedValue(NoConnectionError)
 
-    const result = await usecase.execute()
+    const result = await usecase.execute(credentials)
 
-    expect(result).toEqual(new NoConnectionError())
+    expect(result).toEqual(NoConnectionError)
   })
 })
-
-const mockedResult: UserEntity = {
-  name: 'Gian',
-  token: new Date().getTime().toString(),
-}

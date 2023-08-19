@@ -1,8 +1,8 @@
 export class HttpResult {
-  data: Object | []
+  data: any
   statusCode: number
 
-  constructor(data: any, statusCode: number) {
+  constructor({ data, statusCode }: { data: any; statusCode: number }) {
     this.data = data
     this.statusCode = statusCode
   }

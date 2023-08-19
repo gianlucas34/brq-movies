@@ -1,32 +1,15 @@
-import { IFailure } from '../interfaces/failure'
-
-export class NoConnectionError implements IFailure {
-  message: string
-  type: 'Failure'
-
-  constructor() {
-    this.message = 'Não há conexão com a internet!'
-    this.type = 'Failure'
+export const NoConnectionError = new Error('Não há conexão com a internet!', {
+  cause: 'CustomError',
+})
+export const DatasourceError = new Error(
+  'Algo deu errado! Entre em contato com o suporte.',
+  {
+    cause: 'CustomError',
   }
-}
-
-export class DatasourceError implements IFailure {
-  message: string
-  type: 'Failure'
-
-  constructor() {
-    this.message = 'Algo deu errado! Entre em contato com o suporte.'
-    this.type = 'Failure'
+)
+export const InternalError = new Error(
+  'O servidor encontrou uma situação com a qual não sabe lidar!',
+  {
+    cause: 'CustomError',
   }
-}
-
-export class InternalError implements IFailure {
-  message: string
-  type: 'Failure'
-
-  constructor() {
-    this.message =
-      'O servidor encontrou uma situação com a qual não sabe lidar!'
-    this.type = 'Failure'
-  }
-}
+)

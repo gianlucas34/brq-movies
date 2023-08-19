@@ -1,6 +1,6 @@
-import { IFailure } from '../../../../core/interfaces/failure'
 import { UserEntity } from '../../entities/UserEntity'
+import { ICredentials } from '../../usecases/auth/loginUsecase'
 
 export interface ILoginRepository {
-  login(): Promise<UserEntity | IFailure>
+  login(credentials: ICredentials): Promise<UserEntity | Error>
 }
