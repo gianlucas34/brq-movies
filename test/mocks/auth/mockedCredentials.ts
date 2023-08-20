@@ -1,9 +1,9 @@
-export const credentials = {
+export const mockedCredentials = {
   user: 'user',
   password: '123',
 }
 
-export const otherCredentials = {
+export const mockedOtherCredentials = {
   user: 'other user',
   password: '321',
 }

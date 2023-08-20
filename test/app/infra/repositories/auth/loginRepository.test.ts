@@ -7,8 +7,8 @@ import {
   InternalError,
   NoConnectionError,
 } from '../../../../../src/core/returns/errors'
-import { credentials } from '../../../../mocks/auth/credentials'
-import { mockedResult } from '../../../../mocks/auth/mockedResult'
+import { mockedCredentials } from '../../../../mocks/auth/mockedCredentials'
+import { mockedUser } from '../../../../mocks/auth/mockedUser'
 
 describe('Login Repository', () => {
   const datasource = mock<ILoginDatasource>()
@@ -21,18 +21,18 @@ describe('Login Repository', () => {
 
   it('Should return a UserEntity if user network is connected', async () => {
     networkInfo.isConnected.mockResolvedValue(true)
-    datasource.login.mockResolvedValue(mockedResult)
+    datasource.login.mockResolvedValue(mockedUser)
 
-    const result = await repository.login(credentials)
+    const result = await repository.login(mockedCredentials)
 
-    expect(result).toEqual(mockedResult)
+    expect(result).toEqual(mockedUser)
   })
 
   it('Should return a DatasourceError if user network is connected but datasource failed', async () => {
     networkInfo.isConnected.mockResolvedValue(true)
     datasource.login.mockRejectedValue(DatasourceError)
 
-    const result = await repository.login(credentials)
+    const result = await repository.login(mockedCredentials)
 
     expect(result).toEqual(DatasourceError)
   })
@@ -41,7 +41,7 @@ describe('Login Repository', () => {
     networkInfo.isConnected.mockResolvedValue(true)
     datasource.login.mockRejectedValue(new Error())
 
-    const result = await repository.login(credentials)
+    const result = await repository.login(mockedCredentials)
 
     expect(result).toEqual(InternalError)
   })
@@ -49,7 +49,7 @@ describe('Login Repository', () => {
   it('Should return a NoConnectionError if user network is disconnected', async () => {
     networkInfo.isConnected.mockResolvedValue(false)
 
-    const result = await repository.login(credentials)
+    const result = await repository.login(mockedCredentials)
 
     expect(datasource.login).not.toHaveBeenCalled()
     expect(result).toEqual(NoConnectionError)
