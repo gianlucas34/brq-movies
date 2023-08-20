@@ -72,7 +72,7 @@ describe('Auth Context', () => {
         <TestingComponent />
       </AuthProvider>
     )
-    usecase.execute.mockRejectedValue(DatasourceError)
+    usecase.execute.mockResolvedValue(DatasourceError)
 
     const loginButton = screen.getByTestId('loginButton')
 

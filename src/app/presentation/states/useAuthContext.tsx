@@ -39,16 +39,18 @@ export const AuthProvider = ({
   const login = async (credentials: ICredentials) => {
     setIsLoading(true)
 
-    try {
-      const result = await loginUsecase.execute(credentials)
+    const result = await loginUsecase.execute(credentials)
 
+    if ('token' in result) {
       setIsAuthenticated(true)
       setLoggedUser(result as UserEntity)
       setIsLoading(false)
-    } catch (error: any) {
-      setIsLoading(false)
-      setError(error.message)
+
+      return
     }
+
+    setIsLoading(false)
+    setError(result.message)
   }
 
   const logout = () => {}
