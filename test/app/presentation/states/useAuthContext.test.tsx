@@ -9,7 +9,7 @@ import {
 import { LoginUsecase } from '../../../../src/app/domain/usecases/auth/loginUsecase'
 import { mockedCredentials } from '../../../mocks/auth/mockedCredentials'
 import { mockedUser } from '../../../mocks/auth/mockedUser'
-import { DatasourceError } from '../../../../src/core/returns/errors'
+import { LoginError } from '../../../../src/core/returns/errors'
 
 describe('Auth Context', () => {
   const usecase = mock<LoginUsecase>()
@@ -66,13 +66,13 @@ describe('Auth Context', () => {
     expect(JSON.parse(loggedUser)).toEqual(mockedUser)
   })
 
-  it('Should login error', async () => {
+  it('Should return LoginError', async () => {
     render(
       <AuthProvider loginUsecase={usecase}>
         <TestingComponent />
       </AuthProvider>
     )
-    usecase.execute.mockResolvedValue(DatasourceError)
+    usecase.execute.mockResolvedValue(LoginError)
 
     const loginButton = screen.getByTestId('loginButton')
 
@@ -88,7 +88,7 @@ describe('Auth Context', () => {
     expect(isLoadingReturns[0]).toBeTruthy()
     expect(isLoadingReturns[1]).toBeFalsy()
     expect(isAuthenticated).toBeFalsy()
-    expect(error).toEqual(DatasourceError.message)
+    expect(error).toEqual(LoginError.message)
     expect(loggedUser).toBeUndefined()
   })
 })

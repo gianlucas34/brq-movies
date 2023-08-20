@@ -1,4 +1,4 @@
-import { DatasourceError } from '../../../../core/returns/errors'
+import { LoginError } from '../../../../core/returns/errors'
 import { UserEntity } from '../../../domain/entities/UserEntity'
 import { ICredentials } from '../../../domain/usecases/auth/loginUsecase'
 import { ILoginDatasource } from '../../../infra/datasources/auth/loginDatasource'
@@ -16,7 +16,7 @@ export class LoginDatasource implements ILoginDatasource {
           }).fromJson()
         )
       } else {
-        throw reject(DatasourceError)
+        throw reject(LoginError)
       }
     })
   }

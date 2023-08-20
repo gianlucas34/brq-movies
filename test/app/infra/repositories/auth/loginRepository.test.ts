@@ -3,11 +3,14 @@ import { LoginRepository } from '../../../../../src/app/infra/repositories/auth/
 import { ILoginDatasource } from '../../../../../src/app/infra/datasources/auth/loginDatasource'
 import { INetworkInfo } from '../../../../../src/core/interfaces/networkInfo'
 import {
-  DatasourceError,
+  LoginError,
   InternalError,
   NoConnectionError,
 } from '../../../../../src/core/returns/errors'
-import { mockedCredentials } from '../../../../mocks/auth/mockedCredentials'
+import {
+  mockedCredentials,
+  mockedOtherCredentials,
+} from '../../../../mocks/auth/mockedCredentials'
 import { mockedUser } from '../../../../mocks/auth/mockedUser'
 
 describe('Login Repository', () => {
@@ -28,13 +31,13 @@ describe('Login Repository', () => {
     expect(result).toEqual(mockedUser)
   })
 
-  it('Should return a DatasourceError if user network is connected but datasource failed', async () => {
+  it('Should return a LoginError if user network is connected but user credentials are incorrect', async () => {
     networkInfo.isConnected.mockResolvedValue(true)
-    datasource.login.mockRejectedValue(DatasourceError)
+    datasource.login.mockRejectedValue(LoginError)
 
-    const result = await repository.login(mockedCredentials)
+    const result = await repository.login(mockedOtherCredentials)
 
-    expect(result).toEqual(DatasourceError)
+    expect(result).toEqual(LoginError)
   })
 
   it('Should return a InternalError if user network is connected but the error is not of type Failure', async () => {
