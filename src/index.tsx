@@ -1,4 +1,5 @@
 import React from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Routes } from './routes'
 import { AuthProvider } from './app/presentation/states/useAuthContext'
 import { LoginUsecase } from './app/domain/usecases/auth/loginUsecase'
@@ -13,7 +14,7 @@ export const App = () => {
   const usecase = new LoginUsecase({ repository })
 
   return (
-    <AuthProvider loginUsecase={usecase}>
+    <AuthProvider usecase={usecase} storage={AsyncStorage}>
       <Routes />
     </AuthProvider>
   )
