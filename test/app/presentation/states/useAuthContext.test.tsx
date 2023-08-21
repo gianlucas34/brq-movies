@@ -27,6 +27,7 @@ describe('Auth Context', () => {
       isLoading,
       error,
       login,
+      logout,
     } = useAuthContext()
 
     useEffect(() => {
@@ -49,6 +50,7 @@ describe('Auth Context', () => {
           title="Entrar"
           onPress={() => login(mockedCredentials)}
         />
+        <Button testID="logoutButton" title="Entrar" onPress={() => logout()} />
       </View>
     )
   }
@@ -64,7 +66,7 @@ describe('Auth Context', () => {
       </AuthProvider>
     )
 
-    await act(() => validateAuthStorage.getItem('user'))
+    await act(async () => await validateAuthStorage.getItem('user'))
 
     const isLoadingReturns =
       screen.getByTestId('isLoadingReturns').props.children
@@ -90,7 +92,7 @@ describe('Auth Context', () => {
       </AuthProvider>
     )
 
-    await act(() => storage.getItem('user'))
+    await act(async () => await storage.getItem('user'))
 
     const shouldValidateAuth =
       screen.getByTestId('shouldValidateAuth').props.children
@@ -108,8 +110,8 @@ describe('Auth Context', () => {
 
     const loginButton = screen.getByTestId('loginButton')
 
-    await act(() => fireEvent.press(loginButton))
-    await act(() => storage.getItem('user'))
+    await act(async () => await fireEvent.press(loginButton))
+    await act(async () => await storage.getItem('user'))
 
     const isLoadingReturns =
       screen.getByTestId('isLoadingReturns').props.children
@@ -142,8 +144,8 @@ describe('Auth Context', () => {
 
     const loginButton = screen.getByTestId('loginButton')
 
-    await act(() => fireEvent.press(loginButton))
-    await act(() => storage.getItem('user'))
+    await act(async () => await fireEvent.press(loginButton))
+    await act(async () => await storage.getItem('user'))
 
     const isLoadingReturns =
       screen.getByTestId('isLoadingReturns').props.children
@@ -160,6 +162,25 @@ describe('Auth Context', () => {
     expect(shouldValidateAuth).toBeFalsy()
     expect(isAuthenticated).toBeFalsy()
     expect(error).toEqual(LoginError.message)
+    expect(loggedUser).toBeUndefined()
+  })
+
+  it('Should logout', async () => {
+    render(
+      <AuthProvider usecase={usecase} storage={storage}>
+        <TestingComponent />
+      </AuthProvider>
+    )
+
+    const logoutButton = screen.getByTestId('logoutButton')
+
+    await act(async () => await fireEvent.press(logoutButton))
+
+    const isAuthenticated = screen.getByTestId('isAuthenticated').props.children
+    const loggedUser = screen.getByTestId('loggedUser').props.children
+
+    expect(storage.clear).toHaveBeenCalled()
+    expect(isAuthenticated).toBeFalsy()
     expect(loggedUser).toBeUndefined()
   })
 })

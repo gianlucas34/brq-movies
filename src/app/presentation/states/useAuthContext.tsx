@@ -66,7 +66,12 @@ export const AuthProvider = ({
     setError(result.message)
   }
 
-  const logout = () => {}
+  const logout = () => {
+    storage.clear()
+
+    setIsAuthenticated(false)
+    setLoggedUser(undefined)
+  }
 
   useEffect(() => {
     ;(async () => {

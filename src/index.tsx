@@ -16,7 +16,7 @@ export const App = () => {
 
   return (
     <>
-      <StatusBar backgroundColor="#16171B"></StatusBar>
+      <StatusBar backgroundColor="#16171B" />
       <AuthProvider usecase={usecase} storage={AsyncStorage}>
         <Routes />
       </AuthProvider>

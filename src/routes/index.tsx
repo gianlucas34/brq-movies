@@ -2,13 +2,20 @@ import { NavigationContainer } from '@react-navigation/native'
 import { AuthRoutes } from './auth.routes'
 import { useAuthContext } from '../app/presentation/states/useAuthContext'
 import { AppRoutes } from './app.routes'
+import { Loading } from '../ui/components/Loading'
 
 export const Routes = () => {
-  const { isAuthenticated } = useAuthContext()
+  const { shouldValidateAuth, isAuthenticated } = useAuthContext()
 
   return (
     <NavigationContainer>
-      {isAuthenticated ? <AppRoutes /> : <AuthRoutes />}
+      {shouldValidateAuth ? (
+        <Loading />
+      ) : isAuthenticated ? (
+        <AppRoutes />
+      ) : (
+        <AuthRoutes />
+      )}
     </NavigationContainer>
   )
 }
