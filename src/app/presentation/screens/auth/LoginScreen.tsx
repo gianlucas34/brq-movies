@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Image, Keyboard, Text, TouchableOpacity, View } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { useAuthContext } from '../../states/useAuthContext'
 import { Input } from '../../components/Input'
 import { ICredentials } from '../../../domain/usecases/auth/loginUsecase'
@@ -44,6 +45,7 @@ export const LoginScreen = () => {
     <View className="flex-1 items-center justify-center bg-[#16171B] px-5">
       <Image source={require('../../../../../assets/images/logo.png')} />
       <Input
+        icon={<Icon name="person-outline" color="white" size={24} />}
         placeholder="Usuário"
         error={errors.user}
         onChangeText={(text) =>
@@ -59,6 +61,7 @@ export const LoginScreen = () => {
       />
       <Input
         secureTextEntry
+        icon={<Icon name="lock-closed-outline" color="white" size={24} />}
         placeholder="Senha"
         error={errors.password}
         onChangeText={(text) =>
