@@ -1,5 +1,5 @@
 import React from 'react'
-import { StatusBar } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Routes } from './routes'
 import { AuthProvider } from './app/presentation/states/useAuthContext'
@@ -16,7 +16,7 @@ export const App = () => {
 
   return (
     <>
-      <StatusBar backgroundColor="#16171B" />
+      <StatusBar backgroundColor="#16171B" style="light" />
       <AuthProvider usecase={usecase} storage={AsyncStorage}>
         <Routes />
       </AuthProvider>
