@@ -26,7 +26,7 @@ export const TabBar = ({
         >
           <Icon
             name="dots-vertical"
-            color={modalOpen ? 'black' : 'white'}
+            color={modalOpen ? '#16171B' : '#A9A9A9'}
             size={18}
           />
           <Modal
@@ -98,7 +98,7 @@ export const TabBar = ({
               onPress={onPress}
               onLongPress={onLongPress}
             >
-              <Animated.Text className="text-white">
+              <Animated.Text className="text-[#A9A9A9]">
                 {label as React.ReactNode}
               </Animated.Text>
             </TouchableOpacity>
