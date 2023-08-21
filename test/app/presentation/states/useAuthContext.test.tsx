@@ -50,7 +50,7 @@ describe('Auth Context', () => {
           title="Entrar"
           onPress={() => login(mockedCredentials)}
         />
-        <Button testID="logoutButton" title="Entrar" onPress={() => logout()} />
+        <Button testID="logoutButton" title="Sair" onPress={() => logout()} />
       </View>
     )
   }

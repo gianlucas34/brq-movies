@@ -5,10 +5,11 @@ import { IMAGE_BASE_URL } from '@env'
 import { AppRoutesParams } from '../../../../routes/app.routes'
 import { useMoviesContext } from '../../states/movies/useMoviesContext'
 import { Loading } from '../../../../ui/components/Loading'
+import { Error } from '../../../../ui/components/Error'
 
 export const MoviesScreen = () => {
   const navigation = useNavigation<AppRoutesParams>()
-  const { getMovies, movies, isLoading } = useMoviesContext()
+  const { getMovies, movies, isLoading, error } = useMoviesContext()
 
   useEffect(() => {
     ;(async () => {
@@ -18,6 +19,8 @@ export const MoviesScreen = () => {
 
   return isLoading ? (
     <Loading />
+  ) : !!error ? (
+    <Error message={error} />
   ) : (
     <View className="flex-1 bg-[#16171B] px-2 py-5">
       <ScrollView>
