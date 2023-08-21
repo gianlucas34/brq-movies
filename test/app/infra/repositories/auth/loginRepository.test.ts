@@ -40,7 +40,7 @@ describe('Login Repository', () => {
     expect(result).toEqual(LoginError)
   })
 
-  it('Should return a InternalError if user network is connected but the error is not of type Failure', async () => {
+  it('Should return a InternalError if user network is connected but the cause not is CustomError', async () => {
     networkInfo.isConnected.mockResolvedValue(true)
     datasource.login.mockRejectedValue(new Error())
 

@@ -7,11 +7,11 @@ import React, {
   useState,
 } from 'react'
 import { AsyncStorageStatic } from '@react-native-async-storage/async-storage'
-import { UserEntity } from '../../domain/entities/UserEntity'
+import { UserEntity } from '../../../domain/entities/UserEntity'
 import {
   ICredentials,
   LoginUsecase,
-} from '../../domain/usecases/auth/loginUsecase'
+} from '../../../domain/usecases/auth/loginUsecase'
 
 interface IAuthContext {
   loggedUser?: UserEntity

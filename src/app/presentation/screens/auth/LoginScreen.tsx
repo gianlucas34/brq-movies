@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Image, Keyboard, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { useAuthContext } from '../../states/useAuthContext'
+import { useAuthContext } from '../../states/auth/useAuthContext'
 import { Input } from '../../components/Input'
 import { ICredentials } from '../../../domain/usecases/auth/loginUsecase'
 

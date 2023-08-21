@@ -9,10 +9,12 @@ export class Http implements IHttp {
   })
 
   async get(url: string): Promise<HttpResult> {
-    const result = await this.service.get(`${url}?api_key=${API_KEY}&page=1`)
+    const result = await this.service.get(
+      `${url}?api_key=${API_KEY}&page=1&language=pt-BR`
+    )
 
     return {
-      data: JSON.parse(result.data),
+      data: result.data.results,
       statusCode: result.status,
     }
   }

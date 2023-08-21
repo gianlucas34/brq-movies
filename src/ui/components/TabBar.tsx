@@ -3,7 +3,7 @@ import { Animated, Modal, Text, TouchableOpacity, View } from 'react-native'
 import { MaterialTopTabBarProps } from '@react-navigation/material-top-tabs'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { TabIndicator } from './TabIndicator'
-import { useAuthContext } from '../../app/presentation/states/useAuthContext'
+import { useAuthContext } from '../../app/presentation/states/auth/useAuthContext'
 
 export const TabBar = ({
   state,
