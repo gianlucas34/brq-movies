@@ -12,27 +12,48 @@ import { GetMoviesUsecase } from './app/domain/usecases/movies/getMoviesUsecase'
 import { GetMoviesRepository } from './app/infra/repositories/movies/getMoviesRepository'
 import { GetMoviesDatasource } from './app/external/datasources/movies/getMoviesDatasource'
 import { Http } from './core/services/http'
+import { MovieByIdProvider } from './app/presentation/states/movies/useMovieByIdContext'
+import { GetMovieByIdUsecase } from './app/domain/usecases/movies/getMovieByIdUsecase'
+import { GetMovieByIdRepository } from './app/infra/repositories/movies/getMovieByIdRepository'
+import { GetMovieByIdDatasource } from './app/external/datasources/movies/getMovieByIdDatasource'
 
 export const App = () => {
-  const loginDatasource = new LoginDatasource()
+  const http = new Http()
   const networkInfo = new NetworkInfo()
+
+  const loginDatasource = new LoginDatasource()
   const loginRepository = new LoginRepository({
     datasource: loginDatasource,
     networkInfo,
   })
   const loginUsecase = new LoginUsecase({ repository: loginRepository })
 
-  const http = new Http()
-  const datasource = new GetMoviesDatasource({ http })
-  const repository = new GetMoviesRepository({ datasource, networkInfo })
-  const getMoviesUsecase = new GetMoviesUsecase({ repository })
+  const getMoviesDatasource = new GetMoviesDatasource({ http })
+  const getMoviesRepository = new GetMoviesRepository({
+    datasource: getMoviesDatasource,
+    networkInfo,
+  })
+  const getMoviesUsecase = new GetMoviesUsecase({
+    repository: getMoviesRepository,
+  })
+
+  const getMovieByIdDatasource = new GetMovieByIdDatasource({ http })
+  const getMovieByIdRepository = new GetMovieByIdRepository({
+    datasource: getMovieByIdDatasource,
+    networkInfo,
+  })
+  const getMovieByIdUsecase = new GetMovieByIdUsecase({
+    repository: getMovieByIdRepository,
+  })
 
   return (
     <>
       <StatusBar backgroundColor="#16171B" />
       <AuthProvider usecase={loginUsecase} storage={AsyncStorage}>
         <MoviesProvider usecase={getMoviesUsecase}>
-          <Routes />
+          <MovieByIdProvider usecase={getMovieByIdUsecase}>
+            <Routes />
+          </MovieByIdProvider>
         </MoviesProvider>
       </AuthProvider>
     </>

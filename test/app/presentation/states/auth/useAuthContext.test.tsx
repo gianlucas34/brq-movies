@@ -6,11 +6,11 @@ import { AsyncStorageStatic } from '@react-native-async-storage/async-storage'
 import {
   AuthProvider,
   useAuthContext,
-} from '../../../../src/app/presentation/states/auth/useAuthContext'
-import { LoginUsecase } from '../../../../src/app/domain/usecases/auth/loginUsecase'
-import { mockedCredentials } from '../../../mocks/auth/mockedCredentials'
-import { mockedUser } from '../../../mocks/auth/mockedUser'
-import { LoginError } from '../../../../src/core/returns/errors'
+} from '../../../../../src/app/presentation/states/auth/useAuthContext'
+import { LoginUsecase } from '../../../../../src/app/domain/usecases/auth/loginUsecase'
+import { mockedCredentials } from '../../../../mocks/auth/mockedCredentials'
+import { mockedUser } from '../../../../mocks/auth/mockedUser'
+import { LoginError } from '../../../../../src/core/returns/errors'
 
 describe('Auth Context', () => {
   const usecase = mock<LoginUsecase>()

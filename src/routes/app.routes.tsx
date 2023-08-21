@@ -2,13 +2,18 @@ import {
   NativeStackNavigationProp,
   createNativeStackNavigator,
 } from '@react-navigation/native-stack'
+import { RouteProp } from '@react-navigation/native'
 import { MovieDetailsScreen } from '../app/presentation/screens/movies/MovieDetailsScreen'
 import { AppTabs } from './app.tabs'
 
 export type AppRoutesParams = NativeStackNavigationProp<{
   Movies: undefined
   FavoriteMovies: undefined
-  MovieDetails: undefined
+  MovieDetails: { id: number }
+}>
+
+export type MovieDetailsParams = RouteProp<{
+  params: { id: number }
 }>
 
 const { Navigator, Screen } = createNativeStackNavigator()

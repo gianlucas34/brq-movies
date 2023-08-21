@@ -4,10 +4,10 @@ import { act, fireEvent, render, screen } from '@testing-library/react-native'
 import {
   MoviesProvider,
   useMoviesContext,
-} from '../../../../src/app/presentation/states/movies/useMoviesContext'
-import { GetMoviesUsecase } from '../../../../src/app/domain/usecases/movies/getMoviesUsecase'
-import { mockedMovies } from '../../../mocks/movies/mockedMovies'
-import { DatasourceError } from '../../../../src/core/returns/errors'
+} from '../../../../../src/app/presentation/states/movies/useMoviesContext'
+import { GetMoviesUsecase } from '../../../../../src/app/domain/usecases/movies/getMoviesUsecase'
+import { mockedMovies } from '../../../../mocks/movies/mockedMovies'
+import { DatasourceError } from '../../../../../src/core/returns/errors'
 
 describe('Movies Context', () => {
   const usecase = mock<GetMoviesUsecase>()

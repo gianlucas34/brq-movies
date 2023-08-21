@@ -29,7 +29,9 @@ export const MoviesScreen = () => {
             <TouchableOpacity
               key={item.id}
               className="w-[48%] h-56 mb-4"
-              onPress={() => navigation.navigate('MovieDetails')}
+              onPress={() =>
+                navigation.navigate('MovieDetails', { id: item.id })
+              }
             >
               <Image
                 className="w-full h-full rounded-lg"

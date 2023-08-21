@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import {
   Animated,
   Text,
@@ -8,10 +8,17 @@ import {
 } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import Icon from 'react-native-vector-icons/Ionicons'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native'
+import { IMAGE_BASE_URL } from '@env'
+import { useMovieByIdContext } from '../../states/movies/useMovieByIdContext'
+import { Loading } from '../../../../ui/components/Loading'
+import { Error } from '../../../../ui/components/Error'
+import { MovieDetailsParams } from '../../../../routes/app.routes'
 
 export const MovieDetailsScreen = () => {
   const navigation = useNavigation()
+  const route = useRoute<MovieDetailsParams>()
+  const { getMovieById, movie, isLoading, error } = useMovieByIdContext()
 
   const { width, height } = Dimensions.get('screen')
   const bannerHeight = height * 0.6
@@ -19,7 +26,17 @@ export const MovieDetailsScreen = () => {
 
   const AnimatedButton = Animated.createAnimatedComponent(TouchableOpacity)
 
-  return (
+  useEffect(() => {
+    ;(async () => {
+      await getMovieById(route.params.id)
+    })()
+  }, [])
+
+  return isLoading ? (
+    <Loading />
+  ) : !!error ? (
+    <Error message={error} />
+  ) : (
     <>
       <StatusBar translucent backgroundColor="transparent" style="light" />
       <Animated.View
@@ -71,7 +88,7 @@ export const MovieDetailsScreen = () => {
             }),
           }}
         >
-          Missão: Impossível 7
+          {movie?.title}
         </Animated.Text>
         <AnimatedButton
           className="w-7 h-7 rounded-full items-center justify-center"
@@ -101,7 +118,7 @@ export const MovieDetailsScreen = () => {
         )}
       >
         <Animated.Image
-          source={require('../../../../../assets/images/poster.png')}
+          source={{ uri: `${IMAGE_BASE_URL}${movie?.poster_path}` }}
           style={{
             width: width,
             height: bannerHeight,
@@ -125,19 +142,10 @@ export const MovieDetailsScreen = () => {
           }}
         />
         <View className="p-5 bg-[#16171B]">
-          <Text className="text-white text-2xl mb-3">Missão: Impossível 7</Text>
+          <Text className="text-white text-2xl mb-3">{movie?.title}</Text>
           <Text className="text-[#EC8B00] text-md mb-3">SINOPSE</Text>
-          <Text className="text-white text-lg mb-3">
-            Em Missão Impossível 7: Acerto de Contas Parte 1, Ethan Hunt (Tom
-            Cruise) e a equipe do IMF formada por Ilsa Faust (Rebecca Ferguson),
-            Benji Dunn (Simon Pegg) e Luther Stickell (Ving Rhames) devem
-            rastrear uma nova e aterrorizante arma que representa uma ameaça
-            para toda a humanidade se cair em mãos erradas. Com o controle do
-            futuro e o destino do mundo em jogo, a equipe parte em uma corrida
-            mortal ao redor do planeta. Confrontado por um novo inimigo
-            misterioso e muito perigoso, Ethan assume que nada pode importar
-            mais do que a missão - nem mesmo sua própria vida.Verifique a
-            classificação indicativa no Portal Online da Cultura Digital.
+          <Text className="text-white text-lg mb-3 text-justify">
+            {movie?.overview}
           </Text>
           <View className="flex-row flex-wrap justify-between mt-5">
             {[...Array(4)].map((_, index) => (

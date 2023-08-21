@@ -12,9 +12,10 @@ export class Http implements IHttp {
     const result = await this.service.get(
       `${url}?api_key=${API_KEY}&page=1&language=pt-BR`
     )
+    const data = result.data?.results || result.data
 
     return {
-      data: result.data.results,
+      data: data,
       statusCode: result.status,
     }
   }
