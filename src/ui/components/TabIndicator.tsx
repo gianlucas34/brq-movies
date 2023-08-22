@@ -10,19 +10,14 @@ export const TabIndicator = ({
   const { width } = Dimensions.get('screen')
   const indicatorWidth = width / 2
   const translateValue = new Animated.Value(width * 0)
+  const toValue = indicatorWidth + (state.index - 1) * indicatorWidth
 
-  const slide = () => {
-    const toValue = indicatorWidth + (state.index - 1) * indicatorWidth
-
+  useEffect(() => {
     Animated.timing(translateValue, {
       toValue,
       duration: 300,
       useNativeDriver: true,
     }).start()
-  }
-
-  useEffect(() => {
-    slide()
   }, [state])
 
   return (

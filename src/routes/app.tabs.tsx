@@ -3,22 +3,22 @@ import { MoviesScreen } from '../app/presentation/screens/movies/MoviesScreen'
 import { FavoritedMoviesScreen } from '../app/presentation/screens/movies/FavoritedMoviesScreen'
 import { TabBar } from '../ui/components/TabBar'
 
-const Tab = createMaterialTopTabNavigator()
+const { Navigator, Screen } = createMaterialTopTabNavigator()
 
 export const AppTabs = () => (
-  <Tab.Navigator
+  <Navigator
     initialRouteName="Movies"
     tabBar={(props) => <TabBar {...props} />}
   >
-    <Tab.Screen
+    <Screen
       name="Movies"
       component={MoviesScreen}
       options={{ tabBarLabel: 'Todos os Filmes' }}
     />
-    <Tab.Screen
+    <Screen
       name="FavoritedMovies"
       component={FavoritedMoviesScreen}
       options={{ tabBarLabel: 'Filmes Favoritos' }}
     />
-  </Tab.Navigator>
+  </Navigator>
 )
