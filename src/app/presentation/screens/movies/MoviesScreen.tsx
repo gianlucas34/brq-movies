@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { IMAGE_BASE_URL } from '@env'
 import { AppRoutesParams } from '../../../../routes/app.routes'
 import { useMoviesContext } from '../../states/movies/useMoviesContext'
@@ -11,11 +11,13 @@ export const MoviesScreen = () => {
   const navigation = useNavigation<AppRoutesParams>()
   const { getMovies, movies, isLoading, error } = useMoviesContext()
 
-  useEffect(() => {
-    ;(async () => {
-      await getMovies()
-    })()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      ;(async () => {
+        await getMovies()
+      })()
+    }, [])
+  )
 
   return isLoading ? (
     <Loading />

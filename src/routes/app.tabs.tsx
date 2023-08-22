@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs'
 import { MoviesScreen } from '../app/presentation/screens/movies/MoviesScreen'
-import { FavoriteMoviesScreen } from '../app/presentation/screens/movies/FavoriteMoviesScreen'
+import { FavoritedMoviesScreen } from '../app/presentation/screens/movies/FavoritedMoviesScreen'
 import { TabBar } from '../ui/components/TabBar'
 
 const Tab = createMaterialTopTabNavigator()
@@ -16,8 +16,8 @@ export const AppTabs = () => (
       options={{ tabBarLabel: 'Todos os Filmes' }}
     />
     <Tab.Screen
-      name="FavoriteMovies"
-      component={FavoriteMoviesScreen}
+      name="FavoritedMovies"
+      component={FavoritedMoviesScreen}
       options={{ tabBarLabel: 'Filmes Favoritos' }}
     />
   </Tab.Navigator>

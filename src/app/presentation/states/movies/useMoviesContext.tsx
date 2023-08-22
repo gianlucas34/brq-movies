@@ -31,10 +31,12 @@ export const MoviesProvider = ({
   usecase,
 }: IMoviesProvider): JSX.Element => {
   const [movies, setMovies] = useState<MovieEntity[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string>('')
 
   const getMovies = async () => {
+    setIsLoading(true)
+
     const result = await usecase.execute()
 
     if (Array.isArray(result)) {

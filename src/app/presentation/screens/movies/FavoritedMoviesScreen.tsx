@@ -1,31 +1,32 @@
-import React, { useEffect } from 'react'
+import React, { useCallback } from 'react'
 import { Image, ScrollView, TouchableOpacity, View } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import { IMAGE_BASE_URL } from '@env'
 import { AppRoutesParams } from '../../../../routes/app.routes'
-import { useMoviesContext } from '../../states/movies/useMoviesContext'
 import { Loading } from '../../../../ui/components/Loading'
-import { Error } from '../../../../ui/components/Error'
+import { useFavoritedMoviesContext } from '../../states/movies/useFavoritedMoviesContext'
+import { Empty } from '../../../../ui/components/Empty'
 
-export const FavoriteMoviesScreen = () => {
+export const FavoritedMoviesScreen = () => {
   const navigation = useNavigation<AppRoutesParams>()
-  const { getMovies, movies, isLoading, error } = useMoviesContext()
+  const { getFavoritedMovies, favoritedMovies, isLoading } =
+    useFavoritedMoviesContext()
 
-  useEffect(() => {
-    ;(async () => {
-      await getMovies()
-    })()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      ;(async () => {
+        await getFavoritedMovies()
+      })()
+    }, [])
+  )
 
   return isLoading ? (
     <Loading />
-  ) : !!error ? (
-    <Error message={error} />
-  ) : (
+  ) : !!favoritedMovies.length ? (
     <View className="flex-1 bg-[#16171B] px-2 py-5">
       <ScrollView>
         <View className="flex-row flex-wrap justify-between">
-          {movies.map((item) => (
+          {favoritedMovies.map((item) => (
             <TouchableOpacity
               key={item.id}
               className="w-[48%] h-56 mb-4"
@@ -43,5 +44,7 @@ export const FavoriteMoviesScreen = () => {
         </View>
       </ScrollView>
     </View>
+  ) : (
+    <Empty message="Você ainda não tem nem um filme favoritado!" />
   )
 }

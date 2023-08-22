@@ -16,6 +16,7 @@ import { MovieByIdProvider } from './app/presentation/states/movies/useMovieById
 import { GetMovieByIdUsecase } from './app/domain/usecases/movies/getMovieByIdUsecase'
 import { GetMovieByIdRepository } from './app/infra/repositories/movies/getMovieByIdRepository'
 import { GetMovieByIdDatasource } from './app/external/datasources/movies/getMovieByIdDatasource'
+import { FavoritedMoviesProvider } from './app/presentation/states/movies/useFavoritedMoviesContext'
 
 export const App = () => {
   const http = new Http()
@@ -55,7 +56,9 @@ export const App = () => {
             usecase={getMovieByIdUsecase}
             storage={AsyncStorage}
           >
-            <Routes />
+            <FavoritedMoviesProvider storage={AsyncStorage}>
+              <Routes />
+            </FavoritedMoviesProvider>
           </MovieByIdProvider>
         </MoviesProvider>
       </AuthProvider>
