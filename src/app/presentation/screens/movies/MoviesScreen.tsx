@@ -22,7 +22,7 @@ export const MoviesScreen = () => {
   ) : !!error ? (
     <Error message={error} />
   ) : (
-    <View className="flex-1 bg-[#16171B] px-2 py-5">
+    <View className="flex-1 bg-[#16171B] p-4">
       <ScrollView>
         <View className="flex-row flex-wrap justify-between">
           {movies.map((item) => (

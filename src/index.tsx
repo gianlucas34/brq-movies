@@ -51,7 +51,10 @@ export const App = () => {
       <StatusBar backgroundColor="#16171B" />
       <AuthProvider usecase={loginUsecase} storage={AsyncStorage}>
         <MoviesProvider usecase={getMoviesUsecase}>
-          <MovieByIdProvider usecase={getMovieByIdUsecase}>
+          <MovieByIdProvider
+            usecase={getMovieByIdUsecase}
+            storage={AsyncStorage}
+          >
             <Routes />
           </MovieByIdProvider>
         </MoviesProvider>

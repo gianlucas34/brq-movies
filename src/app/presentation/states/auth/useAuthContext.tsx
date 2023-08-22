@@ -13,6 +13,12 @@ import {
   LoginUsecase,
 } from '../../../domain/usecases/auth/loginUsecase'
 
+interface IAuthProvider {
+  children: React.ReactNode
+  usecase: LoginUsecase
+  storage: AsyncStorageStatic
+}
+
 interface IAuthContext {
   loggedUser?: UserEntity
   setLoggedUser: Dispatch<SetStateAction<IAuthContext['loggedUser']>>
@@ -28,15 +34,7 @@ interface IAuthContext {
 
 const AuthContext = createContext<IAuthContext>({} as IAuthContext)
 
-export const AuthProvider = ({
-  children,
-  usecase,
-  storage,
-}: {
-  children: React.ReactNode
-  usecase: LoginUsecase
-  storage: AsyncStorageStatic
-}) => {
+export const AuthProvider = ({ children, usecase, storage }: IAuthProvider) => {
   const [shouldValidateAuth, setShouldValidateAuth] = useState<boolean>(true)
   const [loggedUser, setLoggedUser] = useState<UserEntity>()
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)

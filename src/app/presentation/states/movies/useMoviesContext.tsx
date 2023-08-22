@@ -12,7 +12,6 @@ import { GetMoviesUsecase } from '../../../domain/usecases/movies/getMoviesUseca
 interface IMoviesProvider {
   children: React.ReactNode
   usecase: GetMoviesUsecase
-  id?: string
 }
 
 interface IMoviesContext {
