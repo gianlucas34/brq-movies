@@ -11,7 +11,12 @@ export type AuthRoutesParams = NativeStackNavigationProp<{
 const { Navigator, Screen } = createNativeStackNavigator()
 
 export const AuthRoutes = () => (
-  <Navigator screenOptions={{ headerShown: false }}>
+  <Navigator
+    screenOptions={{
+      headerShown: false,
+      animation: 'slide_from_right',
+    }}
+  >
     <Screen name="Login" component={LoginScreen} />
   </Navigator>
 )

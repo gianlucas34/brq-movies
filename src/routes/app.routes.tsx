@@ -19,7 +19,12 @@ export type MovieDetailsParams = RouteProp<{
 const { Navigator, Screen } = createNativeStackNavigator()
 
 export const AppRoutes = () => (
-  <Navigator screenOptions={{ headerShown: false }}>
+  <Navigator
+    screenOptions={{
+      headerShown: false,
+      animation: 'slide_from_right',
+    }}
+  >
     <Screen name="Tabs" component={AppTabs} />
     <Screen name="MovieDetails" component={MovieDetailsScreen} />
   </Navigator>
