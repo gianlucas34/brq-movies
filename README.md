@@ -29,7 +29,7 @@
 
 # Instaladores
 
-[Instalador Android .apk](https://drive.google.com/file/d/19-xpPdYUgleljr9KyX6orjYfmCmlCHHF/view?usp=drive_link)
+[Instalador Android .apk](https://drive.google.com/file/d/19-xpPdYUgleljr9KyX6orjYfmCmlCHHF/view?usp=sharing)
 
 ### Informações de login
 
