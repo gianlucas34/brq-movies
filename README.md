@@ -1,7 +1,15 @@
 # BRQ Movies
 
-| ![login](assets/images/login.png) | ![filmes](assets/images/filmes.png) | | ![filmes2](assets/images/filmes2.png) |
-| ![favoritos](assets/images/favoritos.png) | ![detahes](assets/images/detahes.png) | | ![detalhes2](assets/images/detalhes2.png) |
+<table>
+  <tr>
+    <td><img src="/assets/images/login.png" alt="Drawing" style="width: 250px;" /></td>
+    <td><img src="/assets/images/filmes.png" alt="Drawing" style="width: 250px;" /></td>
+    <td><img src="/assets/images/filmes2.png" alt="Drawing" style="width: 250px;" /></td>
+    <td><img src="/assets/images/favoritos.png" alt="Drawing" style="width: 250px;" /></td>
+    <td><img src="/assets/images/detalhes.png" alt="Drawing" style="width: 250px;" /></td>
+    <td><img src="/assets/images/detalhes2.png" alt="Drawing" style="width: 250px;" /></td>
+  </tr>
+</table>
 
 # Principais bibliotecas
 
