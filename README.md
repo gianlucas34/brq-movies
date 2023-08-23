@@ -31,7 +31,7 @@
 
 [Instalador Android .apk](https://drive.google.com/file/d/19-xpPdYUgleljr9KyX6orjYfmCmlCHHF/view?usp=drive_link)
 
-## Informações de login
+### Informações de login
 
-Usuário: user
+Usuário: user <br />
 Senha: 123
