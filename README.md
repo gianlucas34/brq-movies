@@ -1,3 +1,8 @@
+# BRQ Movies
+
+| ![login](assets/images/login.png) | ![filmes](assets/images/filmes.png) | | ![filmes2](assets/images/filmes2.png) |
+| ![favoritos](assets/images/favoritos.png) | ![detahes](assets/images/detahes.png) | | ![detalhes2](assets/images/detalhes2.png) |
+
 # Principais bibliotecas
 
 ## NativeWind
