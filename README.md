@@ -5,6 +5,8 @@
     <td><img src="/assets/images/login.png" alt="Drawing" style="width: 250px;" /></td>
     <td><img src="/assets/images/filmes.png" alt="Drawing" style="width: 250px;" /></td>
     <td><img src="/assets/images/filmes2.png" alt="Drawing" style="width: 250px;" /></td>
+  </tr>
+   <tr>
     <td><img src="/assets/images/favoritos.png" alt="Drawing" style="width: 250px;" /></td>
     <td><img src="/assets/images/detalhes.png" alt="Drawing" style="width: 250px;" /></td>
     <td><img src="/assets/images/detalhes2.png" alt="Drawing" style="width: 250px;" /></td>
