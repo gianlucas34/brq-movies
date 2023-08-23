@@ -51,6 +51,11 @@ export const MovieDetailsScreen = () => {
     outputRange: ['white', '#EC8B00', '#EC8B00'],
     extrapolate: 'clamp',
   })
+  const textOpacity = scrollY.interpolate({
+    inputRange: [0, H_MAX_HEIGHT / 1.3, H_MAX_HEIGHT - H_MIN_HEIGHT],
+    outputRange: [0, 0.5, 1],
+    extrapolate: 'clamp',
+  })
 
   const AnimatedButton = Animated.createAnimatedComponent(TouchableOpacity)
 
@@ -100,13 +105,7 @@ export const MovieDetailsScreen = () => {
             </AnimatedButton>
             <Animated.Text
               className="text-white text-md"
-              style={{
-                opacity: scrollY.interpolate({
-                  inputRange: [0, height / 2],
-                  outputRange: [0, 1],
-                  extrapolate: 'clamp',
-                }),
-              }}
+              style={{ opacity: textOpacity }}
             >
               {movie.title}
             </Animated.Text>
