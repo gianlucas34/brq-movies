@@ -5,6 +5,7 @@ import {
   Dimensions,
   View,
   TouchableOpacity,
+  ScrollView,
 } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -14,6 +15,11 @@ import { useMovieByIdContext } from '../../states/movies/useMovieByIdContext'
 import { Loading } from '../../../../ui/components/Loading'
 import { Error } from '../../../../ui/components/Error'
 import { MovieDetailsParams } from '../../../../routes/app.routes'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
+const { width, height } = Dimensions.get('screen')
+const H_MAX_HEIGHT = height * 0.6
+const H_MIN_HEIGHT = 110
 
 export const MovieDetailsScreen = () => {
   const navigation = useNavigation()
@@ -29,9 +35,22 @@ export const MovieDetailsScreen = () => {
     error,
   } = useMovieByIdContext()
 
-  const { width, height } = Dimensions.get('screen')
-  const bannerHeight = height * 0.6
   const scrollY = useRef(new Animated.Value(0)).current
+  const headerBackground = scrollY.interpolate({
+    inputRange: [0, H_MAX_HEIGHT / 1.3, H_MAX_HEIGHT - H_MIN_HEIGHT],
+    outputRange: ['rgba(0, 0, 0,0)', '#2E2F33', '#2E2F33'],
+    extrapolate: 'clamp',
+  })
+  const imageScale = scrollY.interpolate({
+    inputRange: [0, H_MAX_HEIGHT / 1.3, H_MAX_HEIGHT - H_MIN_HEIGHT],
+    outputRange: [H_MAX_HEIGHT, H_MAX_HEIGHT - H_MAX_HEIGHT / 1.3, 0],
+    extrapolate: 'clamp',
+  })
+  const buttonBackground = scrollY.interpolate({
+    inputRange: [0, H_MAX_HEIGHT / 1.3, H_MAX_HEIGHT - H_MIN_HEIGHT],
+    outputRange: ['white', '#EC8B00', '#EC8B00'],
+    extrapolate: 'clamp',
+  })
 
   const AnimatedButton = Animated.createAnimatedComponent(TouchableOpacity)
 
@@ -53,76 +72,56 @@ export const MovieDetailsScreen = () => {
     <Error message={error} />
   ) : (
     !!movie && (
-      <>
+      <View className="flex-1 bg-[#16171B]">
         <StatusBar translucent backgroundColor="transparent" style="light" />
-        <Animated.View
-          className="absolute w-full h-28 flex-row p-5 z-10 items-end justify-between"
+        <Animated.Image
+          className="absolute z-10 top-0 left-0 right-0 overflow-hidden"
+          source={{ uri: `${IMAGE_BASE_URL}${movie.poster_path}` }}
           style={{
-            transform: [
-              {
-                translateY: scrollY.interpolate({
-                  inputRange: [0, 0.5, 1],
-                  outputRange: [0, 0, 0],
-                  extrapolate: 'clamp',
-                }),
-              },
-              {
-                scale: scrollY.interpolate({
-                  inputRange: [0, 0.5, 1],
-                  outputRange: [1, 1, 1],
-                  extrapolate: 'clamp',
-                }),
-              },
-            ],
-            backgroundColor: scrollY.interpolate({
-              inputRange: [0, height / 2, height / 1.5],
-              outputRange: ['transparent', '#2E2F33', '#2E2F33'],
-              extrapolate: 'clamp',
-            }),
+            width: width,
+            height: imageScale,
+            resizeMode: 'stretch',
+          }}
+        />
+        <Animated.View
+          className="absolute z-20 top-0 left-0 right-0 overflow-hidden"
+          style={{
+            height: H_MIN_HEIGHT,
+            backgroundColor: headerBackground,
           }}
         >
-          <AnimatedButton
-            className="w-7 h-7 rounded-full items-center justify-center"
-            onPress={() => navigation.goBack()}
-            style={{
-              backgroundColor: scrollY.interpolate({
-                inputRange: [0, height / 2, height / 1.5],
-                outputRange: ['white', '#EC8B00', '#EC8B00'],
-                extrapolate: 'clamp',
-              }),
-            }}
-          >
-            <Icon name="arrow-back" size={18} />
-          </AnimatedButton>
-          <Animated.Text
-            className="text-white text-lg"
-            style={{
-              opacity: scrollY.interpolate({
-                inputRange: [0, height / 2],
-                outputRange: [0, 1],
-                extrapolate: 'clamp',
-              }),
-            }}
-          >
-            {movie.title}
-          </Animated.Text>
-          <AnimatedButton
-            className="w-7 h-7 rounded-full items-center justify-center"
-            onPress={() =>
-              isFavorited ? disfavorMovie(movie.id) : favoriteMovie(movie)
-            }
-            style={{
-              backgroundColor: scrollY.interpolate({
-                inputRange: [0, height / 2, height / 1.5],
-                outputRange: ['white', '#EC8B00', '#EC8B00'],
-                extrapolate: 'clamp',
-              }),
-            }}
-          >
-            <Icon name={isFavorited ? 'heart' : 'heart-outline'} size={18} />
-          </AnimatedButton>
+          <SafeAreaView className="flex-1 flex-row items-center justify-between px-4">
+            <AnimatedButton
+              className="w-7 h-7 rounded-full items-center justify-center"
+              onPress={() => navigation.goBack()}
+              style={{ backgroundColor: buttonBackground }}
+            >
+              <Icon name="arrow-back" size={18} />
+            </AnimatedButton>
+            <Animated.Text
+              className="text-white text-md"
+              style={{
+                opacity: scrollY.interpolate({
+                  inputRange: [0, height / 2],
+                  outputRange: [0, 1],
+                  extrapolate: 'clamp',
+                }),
+              }}
+            >
+              {movie.title}
+            </Animated.Text>
+            <AnimatedButton
+              className="w-7 h-7 rounded-full items-center justify-center"
+              onPress={() =>
+                isFavorited ? disfavorMovie(movie.id) : favoriteMovie(movie)
+              }
+              style={{ backgroundColor: buttonBackground }}
+            >
+              <Icon name={isFavorited ? 'heart' : 'heart-outline'} size={18} />
+            </AnimatedButton>
+          </SafeAreaView>
         </Animated.View>
-        <Animated.ScrollView
+        <ScrollView
           showsVerticalScrollIndicator={false}
           scrollEventThrottle={16}
           onScroll={Animated.event(
@@ -133,36 +132,16 @@ export const MovieDetailsScreen = () => {
                 },
               },
             ],
-            { useNativeDriver: true }
+            { useNativeDriver: false }
           )}
+          contentContainerStyle={{ paddingTop: H_MAX_HEIGHT }}
         >
-          <Animated.Image
-            source={{ uri: `${IMAGE_BASE_URL}${movie.poster_path}` }}
-            style={{
-              width: width,
-              height: bannerHeight,
-              resizeMode: 'stretch',
-              transform: [
-                {
-                  translateY: scrollY,
-                },
-                {
-                  scale: scrollY.interpolate({
-                    inputRange: [
-                      -bannerHeight,
-                      0,
-                      bannerHeight,
-                      bannerHeight + 1,
-                    ],
-                    outputRange: [0, 1, 2, 0],
-                  }),
-                },
-              ],
-            }}
-          />
-          <View className="p-5 bg-[#16171B]">
+          <View className="p-5">
             <Text className="text-white text-2xl mb-3">{movie.title}</Text>
             <Text className="text-[#EC8B00] text-md mb-3">SINOPSE</Text>
+            <Text className="text-white text-lg mb-3 text-justify">
+              {movie.overview}
+            </Text>
             <Text className="text-white text-lg mb-3 text-justify">
               {movie.overview}
             </Text>
@@ -185,8 +164,8 @@ export const MovieDetailsScreen = () => {
               ))}
             </View>
           </View>
-        </Animated.ScrollView>
-      </>
+        </ScrollView>
+      </View>
     )
   )
 }
